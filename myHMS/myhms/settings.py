@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-lciuvg^dw(#jks74_duw7f7#gu#-mpnk$x2wg=k=d%^16nbe5&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 
 # Application definition
@@ -75,9 +75,13 @@ WSGI_APPLICATION = 'myhms.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-        'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hmsdb',
+        'USER': 'hmsuser',
+        'PASSWORD': 'hmspostgres',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
