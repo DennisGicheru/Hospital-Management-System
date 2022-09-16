@@ -1,1 +1,1 @@
-# webapp for a hospital management systm
+# webapp for a hospital management system

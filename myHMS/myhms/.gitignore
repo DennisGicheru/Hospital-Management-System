@@ -1,0 +1,4 @@
+#would prefer to ignore settings.py file because of secret Key
+
+settings.py
+__pycache__

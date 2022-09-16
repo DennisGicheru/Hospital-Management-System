@@ -1,0 +1,38 @@
+body {
+    background-color: teal;
+}
+
+.topmenu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: cornflowerblue;
+    width: 100%;
+
+}
+
+.topmenu nav {
+    word-spacing: 10px;
+    list-style: none;
+    font-size: larger;
+    font:bolder;
+    color:rgb(5, 5, 5);
+}
+
+.topmenu nav a {
+    text-decoration: none;
+}
+
+.topmenu img {
+    width: 50px;
+    height: 50px;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: row;
+    float: left;
+}
+
+
+
