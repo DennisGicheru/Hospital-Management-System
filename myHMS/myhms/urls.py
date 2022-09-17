@@ -23,5 +23,6 @@ urlpatterns = [
     path('',mainpage, name='mainpage'),
     path('about/', aboutpage, name="aboutpage"),
     path('login/', loginpage, name="loginpage" ),
-    path('signup/', signuppage, name="signuppage")
+    path('signup/', signuppage, name="signuppage"),
+    # path('features/', featurespage, name="featurespage"),
 ]

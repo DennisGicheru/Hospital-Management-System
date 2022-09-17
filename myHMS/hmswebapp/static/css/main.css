@@ -21,6 +21,9 @@ body {
 
 .topmenu nav a {
     text-decoration: none;
+    color:black;
+    font:bolder;
+    padding:2px;
 }
 
 .topmenu img {

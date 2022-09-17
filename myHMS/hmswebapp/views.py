@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import *
+from django.contrib.auth.models import User,Group
 
 
 # Create your views here.
@@ -12,8 +14,37 @@ def mainpage(request):
 def aboutpage(request):
     return render(request, 'about.html')
 
+# def featurespage(request):
+#     return render(request, 'features.html')
+
 def loginpage(request):
     return render(request, 'login.html')
-
+ 
 def signuppage(request):
-    return render(request, 'signup.html')
+    user =  "none"
+    error = ""
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        password = request.POST['password']
+        repeatpassword = request.POST['repeatpassword']
+        gender = request.POST['gender']
+        phone = request.POST['phone']
+        address = request.POST['address']
+        birthdate = request.POST['dateofbirth']
+
+        try:
+            if password == repeatpassword:
+                Patient.objects.create(name=name, email=email, gender=gender, phone=phone, address=address, birthdate=birthdate)
+                user = User.objects.create_user(first_name=name, email=email, password=password, username=name)
+                pat_group = Group.objects.get(name='Patient')
+                pat_group.user_set.add(user)
+                user.save()
+                error = "no"
+            else:
+                error = "yes"
+        except Exception as e:
+            # raise e
+            error = "yes"
+    d = { 'error' : error }
+    return render(request, 'signup.html',d)
