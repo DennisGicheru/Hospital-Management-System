@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import *
 from django.contrib.auth.models import User,Group
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login,authenticate,logout
 
 
 # Create your views here.
@@ -59,10 +59,13 @@ def loginpage(request):
                 login(request, user)
                 g = request.user.groups.all()[0].name
                 if g == 'Patient' :
-                    return HttpResponse('Patient Logged In successfully..')
-                    #return render(request, 'doctorhome.html')
+                    return render(request, 'loginhomepage.html')
+                    #return render(request, 'doctorhome.html')-example
 
         except Exception as e:
             print(e)
     return render(request, 'login.html')
  
+def logout(request):
+    logout(request)
+    return redirect('loginpage')
