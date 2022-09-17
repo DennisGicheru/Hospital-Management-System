@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
 from django.contrib.auth.models import User,Group
+from django.contrib.auth import login,authenticate
 
 
 # Create your views here.
@@ -17,9 +18,6 @@ def aboutpage(request):
 # def featurespage(request):
 #     return render(request, 'features.html')
 
-def loginpage(request):
-    return render(request, 'login.html')
- 
 def signuppage(request):
     user =  "none"
     error = ""
@@ -48,3 +46,23 @@ def signuppage(request):
             error = ""
     d = { 'error' : error }
     return render(request, 'signup.html',d)
+
+def loginpage(request):
+    
+    if request.method == 'POST':
+        u = request.POST['email']
+        p = request.POST['password']
+
+        user = authenticate(request, username=u, password=p)
+        try:
+            if user is not None:
+                login(request, user)
+                g = request.user.groups.all()[0].name
+                if g == 'Patient' :
+                    return HttpResponse('Patient Logged In successfully..')
+                    #return render(request, 'doctorhome.html')
+
+        except Exception as e:
+            print(e)
+    return render(request, 'login.html')
+ 

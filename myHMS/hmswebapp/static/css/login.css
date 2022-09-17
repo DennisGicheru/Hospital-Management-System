@@ -1,0 +1,17 @@
+body {
+    background-image: url("/static/img/loginpage-background.jpg");
+    width: 100%;
+}
+
+
+form {
+    margin: 20px;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    font-size: large;
+}
+
+div {
+    margin: auto;
+}

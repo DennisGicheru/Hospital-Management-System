@@ -6,9 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/login.css'%}">
 </head>
 <body>
     {% include 'navbar.html' %}
-   <h1>Hello-Welcome to login</h1> 
+   <div style="width: 300px; height:300px; background-color:darkblue; backdrop-filter:inherit;">
+        <form action="" method="post">
+            {% csrf_token %}
+            <img style="width:50px; height:50px; opacity:80%" src="{% static 'images/lock-solid.svg' %}">
+            <div><label>Email:</label><input type="email" required name="email"></div>
+            <div><label>Password:</label><input type="password" name="password" required></div>
+            <button type="submit" style="text-align:center; background-color:forestgreen; padding: 10px; margin:auto; margin-top: 20px; font-size: large; font:bolder; color:antiquewhite">Log In</button>
+        </form>
+   </div> 
 </body>
 </html>
