@@ -30,6 +30,17 @@
             <button type="submit" style="text-align:center; background-color:green; padding: 10px; margin:auto; font-size: large; font:bolder; color:antiquewhite">Sign Up</button>
         </form>
     </div>
-
+{% if error == '' %}
+<script type="text/javascript">
+    alert('Registration successful...');
+    window.location("{% url 'loginpage' %}")
+</script>
+{% endif %}
+{% if error == 'yes' %}
+<script type="text/javascript">
+    alert('Error saving your details...Ensure that your passwords match');
+    window.location("{% url 'loginpage' %}")
+</script>
+{% endif %}
 </body>
 </html>

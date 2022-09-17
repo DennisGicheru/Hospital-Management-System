@@ -40,11 +40,11 @@ def signuppage(request):
                 pat_group = Group.objects.get(name='Patient')
                 pat_group.user_set.add(user)
                 user.save()
-                error = "no"
             else:
                 error = "yes"
+                # print("error saving your details")
         except Exception as e:
             # raise e
-            error = "yes"
+            error = ""
     d = { 'error' : error }
     return render(request, 'signup.html',d)
