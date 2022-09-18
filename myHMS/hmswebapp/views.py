@@ -38,12 +38,13 @@ def signuppage(request):
                 pat_group = Group.objects.get(name='Patient')
                 pat_group.user_set.add(user)
                 user.save()
+                error= "no"
             else:
                 error = "yes"
                 # print("error saving your details")
         except Exception as e:
             # raise e
-            error = ""
+            error = "no"
     d = { 'error' : error }
     return render(request, 'signup.html',d)
 
@@ -53,19 +54,19 @@ def loginpage(request):
         u = request.POST['email']
         p = request.POST['password']
 
-        user = authenticate(request, username=u, password=p)
+        user = authenticate(request,username=u,password=p)
         try:
             if user is not None:
-                login(request, user)
+                login(request,user)
                 g = request.user.groups.all()[0].name
-                if g == 'Patient' :
+                if g == 'Patient':
                     return render(request, 'loginhomepage.html')
-                    #return render(request, 'doctorhome.html')-example
+                    # return HttpResponse("Patient log in successful..")
 
         except Exception as e:
             print(e)
     return render(request, 'login.html')
- 
-def logout(request):
+  
+def Logout(request):
     logout(request)
     return redirect('loginpage')

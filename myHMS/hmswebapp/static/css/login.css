@@ -1,6 +1,5 @@
 body {
     background-image: url("/static/img/loginpage-background.jpg");
-    width: 100%;
 }
 
 
@@ -12,6 +11,6 @@ form {
     font-size: large;
 }
 
-div {
+.signup {
     margin: auto;
 }

@@ -10,14 +10,14 @@
 </head>
 <body>
     {% include 'navbar.html' %}
-   <div style="width: 300px; height:300px; background-color:darkblue; backdrop-filter:inherit;">
-        <form action="" method="post">
+    <div class="signup" style="width: 300px; height:300px; background-color:darkblue;">
+        <form method="post">
             {% csrf_token %}
             <img style="width:50px; height:50px; opacity:80%" src="{% static 'images/lock-solid.svg' %}">
             <div><label>Email:</label><input type="email" required name="email"></div>
             <div><label>Password:</label><input type="password" name="password" required></div>
             <button type="submit" style="text-align:center; background-color:forestgreen; padding: 10px; margin:auto; margin-top: 20px; font-size: large; font:bolder; color:antiquewhite">Log In</button>
         </form>
-   </div> 
+    </div> 
 </body>
 </html>

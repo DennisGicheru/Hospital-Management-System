@@ -24,6 +24,6 @@ urlpatterns = [
     path('about/', aboutpage, name="aboutpage"),
     path('login/', loginpage, name="loginpage" ),
     path('signup/', signuppage, name="signuppage"),
-    path('logout/', logout, name='logout'),
+    path('logout/', Logout, name='logout'),
     # path('features/', featurespage, name="featurespage"),
 ]
