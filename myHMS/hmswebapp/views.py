@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import *
@@ -60,8 +61,8 @@ def loginpage(request):
                 login(request,user)
                 g = request.user.groups.all()[0].name
                 if g == 'Patient':
-                    return render(request, 'loginhomepage.html')
-                    # return HttpResponse("Patient log in successful..")
+                    # return render(request, 'loginhomepage.html')
+                    return HttpResponse("Patient log in successful..")
 
         except Exception as e:
             print(e)
@@ -70,3 +71,56 @@ def loginpage(request):
 def Logout(request):
     logout(request)
     return redirect('loginpage')
+
+
+def Home(request):
+    if not request.user.is_active:
+        return redirect ('loginpage')
+
+    g = request.user.groups.all()[0].name
+    if g == 'Patient':
+        return render(request, "loginhomepage.html")
+
+# def profile(request):
+#     if not request.user.is_active:
+#         return redirect('loginpage')
+#     g = request.user.groups.all()[0].name
+#     if g == 'Patient':
+#         patient_details = Patient.objects.all().filter(email=request.user)
+#         d = {'patient_details':patient_details}
+#         return render(request, 'patientprofile.html', d)
+
+def MakeAppointments(request):
+    if not request.user.is_active:
+        return redirect('loginpage')
+    error=""
+    alldoctors = Doctor.objects.all()
+    d = {'alldoctors':alldoctors}
+       
+    if request.method == 'POST':
+        temp = request.POST['doctoremail']
+        doctoremail = temp.split()[0]
+        doctorname = temp.split()[1]
+        patientname = request.POST['patientname']
+        patientemail = request.POST['patientemail']
+        appointmentdate = request.POST['appointmentdate']
+        appointmenttime = request.POST['appointmenttime']
+        symptoms = request.POST['symptoms']
+        try:
+            Appointment.objects.create(doctorname=doctorname, doctoremail=doctoremail, patientname=patientname, patientemail=patientemail, appointmenttime=appointmenttime, appointmentdate=appointmentdate, symptoms=symptoms, status=True, prescription="")
+            error="no"
+        except Exception as e:
+            error="yes"
+        e ={'error':error}
+        return render(request, 'makeappointments.html',e)
+
+    return render(request, 'makeappointments.html',d)
+
+
+#main purpose is for viewing appointments made
+def viewappointments(request):
+    if not request.user.is_active:
+        return redirect('login page')
+    g = request.user.groups.all()[0].name
+    if g == 'Patient':
+        upcoming_appointments = Appointment.objects.filter(patientemail=request.user, appointmentdate_gte=timezone.now()).order_by('appointment')

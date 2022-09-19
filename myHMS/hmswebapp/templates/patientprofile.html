@@ -1,0 +1,31 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li><a href="{% url 'home' %}" style="color:white; text-decoration:none; font:bolder; font-size:large;">Home</a></li>
+            <li><a href="{% url 'profile'%}" style="color:white; text-decoration:none; font:bolder; font-size:large;">Profile</a></li>
+            <li><a href="" style="color:white; text-decoration:none; font:bolder; font-size:large;">View Appointments</a></li>
+            <li><a href="{% url 'logout'%}" style="color:white; text-decoration:none; font:bolder; font-size:large;">Logout</a></li>
+        </ul>
+    </div>
+    <div>
+        {% for d in patient_details %}
+        <form>
+            <div><label>Name: </label><input type="text" readonly="" value="{{d.name}}"></div>
+            <div><label>Email: </label><input type="email" readonly="" value="{{d.email}}"></div>
+            <div><label>Gender: </label><input type="text" readonly="" value="{{d.gender}}"></div>
+            <div><label>Phone: </label><input type="number" readonly="" value="{{d.phone}}"></div>
+            <div><label>Address: </label><textarea readonly="">{{d.address}}</textarea></div>
+            <div><label>Birthdate: </label><input type="date" readonly="" value="{{d.Birthdate}}"></div>
+        </form>
+        {% endfor %}
+    </div>
+</body>
+</html> -->

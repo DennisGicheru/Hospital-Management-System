@@ -26,4 +26,6 @@ urlpatterns = [
     path('signup/', signuppage, name="signuppage"),
     path('logout/', Logout, name='logout'),
     # path('features/', featurespage, name="featurespage"),
+    # path('profile/',profile,name='profile'),
+    path('makeappointments/', MakeAppointments,name='makeappointments'), 
 ]

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <select>
+                {% for d in alldoctors%}
+                <option value="{{d.email}} {{d.name}}">{{d.name}}---->{{d.specializations}}</option>
+                {% endfor%}
+            </select>
+        </div>
+        <div>
+            <input type="text" value="{{user.first_name}}">
+        </div>
+        <div>
+            <input type="text" value="{{user.username}}">
+        </div>
+        <button type="submit">Make appointment</button>
+    </form>
+    {% if error == 'no' %} 
+    <script type="text/javascript">
+        alert('Appointment booked successfully...')
+        window.location('{%url ',makeappointments,'%}')
+    </script>   
+    {% endif %}
+    {% if error == 'yes' %} 
+    <script type="text/javascript">
+        alert('Something went wrong...')
+    </script>   
+    {% endif %}
+</body>
+</html>
