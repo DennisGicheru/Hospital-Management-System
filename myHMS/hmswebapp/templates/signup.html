@@ -33,13 +33,13 @@
 {% if error == 'no' %}
 <script type="text/javascript">
     alert('Registration successful...');
-    window.location('{% url ',loginpage,' %}')
+    window.location('{% url 'loginpage' %}')
 </script>
 {% endif %}
 {% if error == 'yes' %}
 <script type="text/javascript">
     alert('Error saving your details...Ensure that your passwords match');
-    window.location('{% url ',loginpage,' %}')
+    window.location('{% url 'loginpage' %}')
 </script>
 {% endif %}
 </body>
