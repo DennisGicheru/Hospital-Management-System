@@ -28,4 +28,6 @@ urlpatterns = [
     # path('features/', featurespage, name="featurespage"),
     # path('profile/',profile,name='profile'),
     path('makeappointments/', MakeAppointments,name='makeappointments'), 
+    path('viewappointments/', ViewAppointments,name='viewappointments'),
+    path('deleteappointment<int:aid>',delete_appointment, name='delete_appointment'), 
 ]

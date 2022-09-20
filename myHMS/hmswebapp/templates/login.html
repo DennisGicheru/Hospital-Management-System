@@ -19,5 +19,17 @@
             <button type="submit" style="text-align:center; background-color:forestgreen; padding: 10px; margin:auto; margin-top: 20px; font-size: large; font:bolder; color:antiquewhite">Log In</button>
         </form>
     </div> 
+    {% if error == 'no' %}
+    <script type="text/javascript">
+        alert('Login successful...');
+        window.location('{% url 'loginhomepage' %}')
+    </script>
+    {% endif %}
+    {% if error == 'yes' %}
+    <script type="text/javascript">
+        alert('Login Unsuccessful, kindly try again...');
+        window.location('{% url 'loginpage' %}')
+    </script>
+    {% endif %}
 </body>
 </html>
