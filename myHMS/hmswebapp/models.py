@@ -7,7 +7,7 @@ class Patient(models.Model):
     gender= models.CharField(max_length=10)
     phone = models.CharField(max_length=10)
     address = models.CharField(max_length=100)
-    birthdate = models.DateField()
+    birthdate = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.name

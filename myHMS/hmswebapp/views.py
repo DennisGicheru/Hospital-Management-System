@@ -6,6 +6,66 @@ from django.contrib.auth.models import User,Group
 from django.contrib.auth import login,authenticate,logout
 
 
+#new imports to create a CRUD operation for a Django API
+# parsing data from the client
+from rest_framework.parsers import JSONParser
+# To bypass having a CSRF token
+from django.views.decorators.csrf import csrf_exempt
+# for sending response to the client
+from django.http import HttpResponse, JsonResponse
+# API definition for patient
+from .serializers import PatientSerializer
+# Patient model
+from .models import Patient
+
+#handling incoming request
+@csrf_exempt
+def patients(request):
+    '''
+    List all patient snippets
+    '''
+    if(request.method == 'GET'):
+        #get all the patient details
+        patients = Patient.objects.all()
+        # serialize the patient data
+        serializer = PatientSerializer(patients, many=True)
+        #return JSON response
+        return JsonResponse(serializer.data,safe=False)
+    elif(request.method == 'POST'):
+        #parse incoming information
+        data = JSONParser().parse(request)
+        #instanciate with serializer
+        serializer = PatientSerializer(data=data)
+        #check if the sent information is okay
+        if (serializer.is_valid()):
+            #if okay, save it on the database
+            serializer.save()
+            #provide a JSON Response with the data that was saved
+            return JsonResponse(serializer.data, status=201)
+            #provide a JSON response with necessary error information
+        return JsonResponse(serializers.errors, status=400) 
+        
+@csrf_exempt
+def patient_detail(request, pk):
+    try:
+        #obtain the task with the passed id.
+        patient = Patient.objects.get(pk=pk)
+    except:
+        return HttpResponse(status=404)
+    if(request.method == 'PUT'):
+        data = JSONParser().parse(request)
+        serializer = PatientSerializer(patient, data=data)
+        if(serializer.is_valid()):
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+    elif(request.method == 'DELETE'):
+        task.delete()
+        return HttpResponse(status=204)
+
+
+
+
 # Create your views here.
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")

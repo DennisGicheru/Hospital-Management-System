@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import include, path
 from hmswebapp.views import *
 
+
 urlpatterns = [
-    # path('hmswebapp/', include('hmswebapp.urls')),
+    path('api/', include('hmswebapp.urls')),
+
     path('admin/', admin.site.urls),
     path('',mainpage, name='mainpage'),
     path('about/', aboutpage, name="aboutpage"),
