@@ -22,13 +22,13 @@
     {% if error == 'no' %}
     <script type="text/javascript">
         alert('Login successful...');
-        window.location('{% url 'loginhomepage' %}')
+        // window.location('{% url 'loginhomepage' %}')
     </script>
     {% endif %}
     {% if error == 'yes' %}
     <script type="text/javascript">
         alert('Login Unsuccessful, kindly try again...');
-        window.location('{% url 'loginpage' %}')
+        // window.location('{% url 'loginpage' %}')
     </script>
     {% endif %}
 </body>

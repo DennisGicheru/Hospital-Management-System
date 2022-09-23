@@ -5,6 +5,7 @@ from .models import *
 from django.contrib.auth.models import User,Group
 from django.contrib.auth import login,authenticate,logout
 
+#Creation of Django API to use with VUE
 
 #new imports to create a CRUD operation for a Django API
 # parsing data from the client
@@ -63,6 +64,7 @@ def patient_detail(request, pk):
         task.delete()
         return HttpResponse(status=204)
 
+#end of creation of Django API to use with vue
 
 
 
@@ -109,6 +111,7 @@ def signuppage(request):
     d = { 'error' : error }
     return render(request, 'signup.html',d)
 
+
 def loginpage(request):
     error=""
     
@@ -121,15 +124,14 @@ def loginpage(request):
             if user is not None:
                 login(request,user)
                 g = request.user.groups.all()[0].name
-                if g == 'Patient':
-                    return render(request, 'loginhomepage.html')
-                elif g == 'Doctor':
-                    d = {'error': error}
-                    return render(request, 'doctorhome.html', d)
+                if g == 'Doctors':
+                    return render(request, 'doctorhome.html')
         except Exception as e:
             print(e)
-    #return render(request, 'login.html')
-    return HttpResponse("Login successful ...")
+        return HttpResponse("Login not successful ... Ensure you enter the right details")
+        return redirect('loginpage')
+    else:
+        return render(request, 'login.html')
   
 def Logout(request):
     logout(request)
@@ -141,9 +143,9 @@ def Home(request):
         return redirect ('loginpage')
 
     g = request.user.groups.all()[0].name
-    if g == 'Patient':
+    if g == 'Patients':
         return render(request, "loginhomepage.html")
-    if g == 'Doctor':
+    if g == 'Doctors':
         return render(request, "doctorhome.html")
 # def profile(request):
 #     if not request.user.is_active:
@@ -180,9 +182,8 @@ def MakeAppointments(request):
         except Exception as e:
             error="yes"
         e ={'error':error}
-        return render(request, 'makeappointments.html',e)
-
-    return render(request, 'makeappointments.html',d)
+        return render(request, 'doctorhome.html',e)
+    return render(request, 'makeappointments.html')
 
 
 #main purpose is for viewing appointments made
@@ -190,12 +191,12 @@ def ViewAppointments(request):
     if not request.user.is_active:
         return redirect('login page')
     g = request.user.groups.all()[0].name
-    if g == 'Patient':
+    if g == 'Patients':
         upcoming_appointments = Appointment.objects.filter(patientemail=request.user, appointmentdate_gte=timezone.now(),status=True).order_by('appointment')
         previous_apppointments = Appointment.objects.filter(patientemail=request.user, appointment__lt=timezone.now()).order_by('-appointmentdate') | Appointment.objects.filter(patientemail=request.user,status=False).order_by('-appointmentdate')
         d = {'upcoming_appointments':upcoming_appointments, 'previous_appointments':previous_apppointments}
         return render(request, 'viewappointments.html', d)
-    if g == 'Doctor':
+    if g == 'Doctors':
         if request.method == 'POST':
             prescriptiondata = request.POST['prescription']
             idvalue=request.POST['idofappointment']

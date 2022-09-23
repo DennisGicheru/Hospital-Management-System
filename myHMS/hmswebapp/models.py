@@ -38,4 +38,4 @@ class Appointment(models.Model):
     status = models.BooleanField()
 
     def __str__(self):
-        return self.patientname+", your appointment with "+self.doctorname+" is on "+self.appointmentdate 
+        return self.name

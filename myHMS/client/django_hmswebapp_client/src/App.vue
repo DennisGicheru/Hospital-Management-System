@@ -1,20 +1,26 @@
 <template>
   <div id="app">
-    <Patients />
-    <CovidData />
-  
+    <NavBar />
+    <!-- <Patients />
+    <CovidData /> -->
+    <MainPage />
+    <router-view/>  
   </div>
 </template>
 
-<script>
-// import HelloWorld from './components/HelloWorld.vue'
-import Patients from './components/Patients.vue';
-import CovidData from './components/CovidData.vue';
+<script type="text/javascript">
+// import Patients from './components/Patients.vue';
+// import CovidData from './components/CovidData.vue';
+import MainPage from './components/MainPage.vue';
+import NavBar from './components/NavBar.vue'
 export default {
   name: 'App',
   components: {
-    Patients,
-    CovidData
+    NavBar,
+    MainPage,
+    // Patients,
+    // CovidData,
+    // MainPage,
 },
 };
 </script>
@@ -25,7 +31,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: black; 
+
 }
 </style>
