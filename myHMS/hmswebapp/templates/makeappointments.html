@@ -17,20 +17,21 @@
                     <div class="well-title">
                         <h2>Book an Appointment</h2>
                     </div>
-                    <form>
+                    <form method="post">
+                        {% csrf_token %}
                         <!-- Form start -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label" for="name">Name</label>
-                                    <input id="name" name="name" value="{{user.first_name}}" type="text" placeholder="Name" class="form-control input-md">
+                                    <label class="control-label" for="doctorname">Name</label>
+                                    <input id="name" name="doctorname" value="{{user.first_name}}" type="text" placeholder="Name" class="form-control input-md" required>
                                 </div>
                             </div>
                             <!-- Text input-->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label" for="doctoremail">Email</label>
-                                    <input id="email" name="doctoremail" value="{{user.username}}" type="text" placeholder="E-Mail" class="form-control input-md">
+                                    <input id="email" name="doctoremail" value="{{user.username}}" type="text" placeholder="E-Mail" class="form-control input-md" required>
                                 </div>
                             </div>
 
@@ -59,7 +60,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label" for="appointmenttime">Preferred Time</label>
-                                    <select id="time" name="appointmenttime" class="form-control">
+                                    <select id="appointmenttime" name="appointmenttime" class="form-control">
                                         <option value="8:00 to 9:00">8:00 to 9:00</option>
                                         <option value="9:00 to 10:00">9:00 to 10:00</option>
                                         <option value="10:00 to 1:00">10:00 to 1:00</option>
@@ -74,18 +75,18 @@
                                 <div class="form-group">
                                     <label class="control-label" for="appointmentfor">Appointment For</label>
                                     <select id="appointmentfor" name="appointmentfor" class="form-control">
-                                        <option value="Service#1">First time consultation</option>
-                                        <option value="Service#2">Regular checkup</option>
-                                        <option value="Service#3">Appointment Reschedule</option>
-                                        <option value="Service#4">Other purpose</option>
+                                        <option value="First time consultation">First time consultation</option>
+                                        <option value="Regular checkup">Regular checkup</option>
+                                        <option value="Appointment Reschedule">Appointment Reschedule</option>
+                                        <option value="Other purpose">Other purpose</option>
                                     </select>
                                 </div>
                             </div>
                             <!-- Quick description-->
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-form" for="description">Further Details:</label>
-                                    <textarea id="description" name="description" class="form-control" placeholder="optional">
+                                    <label class="control-form" for="details">Further Details:</label>
+                                    <textarea id="details" name="details" class="form-control" placeholder="optional">
                                     </textarea>
                                 </div>
                             </div>
@@ -93,6 +94,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-success">Make Appointment</button>
+                                    <button type="submit" id="singlebutton" name="cancel" class="btn btn-dark">Cancel</button></a>
                                 </div>
                             </div>
                         </div>

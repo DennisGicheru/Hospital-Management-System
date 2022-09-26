@@ -1,9 +1,11 @@
 from datetime import timezone
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, HttpResponseRedirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from django.contrib.auth.models import User,Group
 from django.contrib.auth import login,authenticate,logout
+#import doctors form from doctors
+#  #from .forms import doctorregister
 
 #Creation of Django API to use with VUE
 
@@ -129,7 +131,8 @@ def loginpage(request):
         except Exception as e:
             print(e)
         return HttpResponse("Login not successful ... Ensure you enter the right details")
-        return redirect('loginpage')
+        # return render(request, 'doctorhome.html')
+        # return redirect('loginpage')
     else:
         return render(request, 'login.html')
   
@@ -137,7 +140,36 @@ def Logout(request):
     logout(request)
     return redirect('loginpage')
 
+def doctorsignup(request):
+    user =  "none"
+    error = ""
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        password = request.POST['password']
+        repeatpassword = request.POST['repeatpassword']
+        gender = request.POST['gender']
+        phone = request.POST['phone']
+        address = request.POST['address']
+        birthdate = request.POST['dateofbirth']
+        specialization = request.POST['specialization']
 
+        try:
+            if password == repeatpassword:
+                Doctor.objects.create(name=name, email=email, gender=gender, phone=phone, address=address, birthdate=birthdate, specialization=specialization)
+                user = User.objects.create_user(first_name=name, email=email, password=password, username=email)
+                doc_group = Group.objects.get(name='Doctor')
+                doc_group.user_set.add(user)
+                user.save()
+                error= "no"
+            else:
+                error = "yes"
+                # print("error saving your details")
+        except Exception as e:
+            # raise e
+            error = "no"
+    return render(request, 'doctorsignup.html')
+   
 def Home(request):
     if not request.user.is_active:
         return redirect ('loginpage')
@@ -147,18 +179,6 @@ def Home(request):
         return render(request, "loginhomepage.html")
     if g == 'Doctors':
         return render(request, "doctorhome.html")
-# def profile(request):
-#     if not request.user.is_active:
-#         return redirect('loginpage')
-#     g = request.user.groups.all()[0].name
-#     if g == 'Patient':
-#         patient_details = Patient.objects.all().filter(email=request.user)
-#         d = {'patient_details':patient_details}
-#         return render(request, 'patientprofile.html', d)
-#     if g == 'Doctor':
-#         doctor_details = Doctor.objects.all().filter(email=request.user)
-#         d = {'doctor_details':doctor_details}
-#         return render(request, 'doctorprofile.html', d)
 
 def MakeAppointments(request):
     if not request.user.is_active:
@@ -166,24 +186,28 @@ def MakeAppointments(request):
     error=""
     alldoctors = Doctor.objects.all()
     d = {'alldoctors':alldoctors}
-       
+
     if request.method == 'POST':
-        temp = request.POST['doctoremail']
-        doctoremail = temp.split()[0]
-        doctorname = temp.split()[1]
+        appointmentfor = request.POST['appointmentfor']
+        doctorname = request.POST['doctorname']
+        doctoremail = request.POST['doctoremail']
+        # doctorname = temp.split()[1]
+        # doctoremail = temp.split()[0]
         patientname = request.POST['patientname']
         patientemail = request.POST['patientemail']
         appointmentdate = request.POST['appointmentdate']
         appointmenttime = request.POST['appointmenttime']
-        symptoms = request.POST['symptoms']
+        details = request.POST['details']
         try:
-            Appointment.objects.create(doctorname=doctorname, doctoremail=doctoremail, patientname=patientname, patientemail=patientemail, appointmenttime=appointmenttime, appointmentdate=appointmentdate, symptoms=symptoms, status=True, prescription="")
+            Appointment.objects.create(doctorname=doctorname, doctoremail=doctoremail, patientname=patientname, patientemail=patientemail, appointmenttime=appointmenttime, appointmentdate=appointmentdate, appointmentfor=appointmentfor, details=details, status=True)
             error="no"
         except Exception as e:
             error="yes"
         e ={'error':error}
         return render(request, 'doctorhome.html',e)
     return render(request, 'makeappointments.html')
+    if request.POST["cancel"]:
+        return
 
 
 #main purpose is for viewing appointments made
@@ -210,3 +234,52 @@ def delete_appointment(request, aid):
     appointment = Appointment.objects.get(id=aid)
     appointment.delete()
     return redirect('viewappointments.html')
+
+#first create form data for doctors
+# def createview(request):
+#     #dictionary for initial data
+#     context={}
+#     #add dictionary during initialization
+#     form = doctorregister(request.POST or None)
+#     if form.is_valid():
+#         form.save()
+#     context['form']=form
+#     return render(request, "createview.html", context) 
+
+
+#viewing data
+#Viewing doctor details using forms
+#view summary of doctor data
+def doctordetail(request, id):
+    #dictionary with initial data with field names as keys
+    context = {}
+
+    #add dictionary during initialization
+    context["data"] = Doctor.objects.get(id = id)
+
+    return render(request, "doctordetails.html", context)
+
+
+
+#view summary of patient data
+def patientdata(request):
+    #dictionary for initial data with field names as keys
+    context = {}
+
+    #add the dictionary during initialization
+    context["dataset"] = Patient.objects.all()
+    return render(request, "patientdata.html", context)
+
+
+#view appointments
+def viewappointments(request):
+    #dictionary for initial data with field names as keys
+    context = {}
+
+    #add the dictionary during initialization
+    context["dataset"] = Appointment.objects.all()
+    return render(request, "viewappointments.html", context)
+
+
+
+

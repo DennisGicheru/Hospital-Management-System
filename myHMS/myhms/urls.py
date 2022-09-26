@@ -27,10 +27,17 @@ urlpatterns = [
     path('login/', loginpage, name="loginpage" ),
     path('signup/', signuppage, name="signuppage"),
     path('logout/', Logout, name='logout'),
+    path('doctorsignup/', doctorsignup, name='doctorsignup'),
+
 
     # path('features/', featurespage, name="featurespage"),
     # path('profile/',profile,name='profile'),
     path('makeappointments/', MakeAppointments,name='makeappointments'), 
     path('viewappointments/', ViewAppointments,name='viewappointments'),
-    path('deleteappointment<int:aid>',delete_appointment, name='delete_appointment'), 
+    path('deleteappointment<int:aid>',delete_appointment, name='delete_appointment'),
+    # path('createview/',createview,name='createview'), 
+    path('patientdata/',patientdata,name='patientdata'), 
+    path('doctordetail/',doctordetail,name='doctordetail'),
+    path('viewappointment/', viewappointments,name='viewappointments'),
+
 ]

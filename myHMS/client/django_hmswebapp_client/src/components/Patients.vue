@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
  <div>
-    <div class="add_patient">
+    <div class="add_patient" v-show="showdata">
         <form v-on:submit.prevent="submitForm">
             <div class="form-group">
                 <label for="name">Name:</label>
@@ -54,7 +54,7 @@
             </tr>
         </table>
     </div>
-    <CovidData />
+    <CovidData v-show="Showdata = false" />
 
  </div>
     

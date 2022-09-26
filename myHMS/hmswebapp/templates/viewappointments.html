@@ -4,51 +4,52 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>View appointments</title>
 </head>
 <body>
     <div>
-        <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'profile' %}">Profile</a></li>
-            <li><a href="{% url 'makeappointments' %}">Make Appointments</a></li>
-            <li><a href="{% url 'viewappointments' %}">View Appointments</a></li>
-        </ul>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Back</a>
+            <a href="{% url 'makeappointments' %}">Schdule new Appointment</a>
+            <a href="{% url 'viewappointments' %}">View Appointments</a>
+        </nav>
     </div>
     <div>
-        {% for i in upcoming_appointments%}
+        {% for data in dataset %}
         <ul>
-            <li>,<h5>{{i.patientname}} appointment with {{i.doctorname}} on {{i.appointmentdate}}</h5>
+            <div><h5>{{data.patientname}} appointment with {{data.doctorname}} on {{data.appointmentdate}}</div>
                 <div class="table">
                     <table>
                         <tr>
                             <td>Doctor Name:</td>
-                            <td>{{i.doctorname}}</td>
+                            <td>{{data.doctorname}}</td>
                         </tr>
                         <tr>
                             <td>Patient Name:</td>
-                            <td>{{i.patientname}}</td>
+                            <td>{{data.patientname}}</td>
                         </tr>
                         <tr>
                             <td>Appointment Date:</td>
-                            <td>{{i.appointmentdate}}</td>
+                            <td>{{data.appointmentdate}}</td>
                         </tr>
                         <tr>
                             <td>Appointment Time:</td>
-                            <td>{{i.appointmenttime}}}</td>
+                            <td>{{data.appointmenttime}}}</td>
                         </tr>
                         <tr>
-                            <td>Symptoms:</td>
-                            <td>{{i.symptoms}}</td>
+                            <td>Appointment for:</td>
+                            <td>{{data.appointmentfor}}</td>
                         </tr>
                         <tr>
-                            <td>Delete Appointment:</td>
-                            <td><a href="{% url 'delete_appointment' i.id %}" onclick="return confirm('are you sure you want to delete?')">Delete</a></td>
+                            <td>Details:</td>
+                            <td>{{data.details}}</td>
                         </tr>
                     </table>
                 </div>
             </li>
         </ul>
+        {% endfor %}
     </div>
 </body>
 </html>

@@ -31,10 +31,10 @@ class Appointment(models.Model):
     doctoremail = models.EmailField(max_length=50)
     patientname= models.CharField(max_length=50)
     patientemail = models.EmailField(max_length=50)
-    appointmentdate = models.DateField()
-    appointmenttime = models.TimeField()
-    symptoms = models.CharField(max_length=100)
-    prescription = models.CharField(max_length=200)
+    appointmentdate = models.DateField(auto_now_add = True)
+    appointmenttime = models.CharField(max_length=50)
+    appointmentfor = models.CharField(max_length=100)
+    details = models.CharField(max_length=200)
     status = models.BooleanField()
 
     def __str__(self):
