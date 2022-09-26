@@ -28,8 +28,8 @@ class Doctor(models.Model):
 
 class Appointment(models.Model):
     doctorname = models.CharField(max_length=50)
-    patientname= models.CharField(max_length=50)
     doctoremail = models.EmailField(max_length=50)
+    patientname= models.CharField(max_length=50)
     patientemail = models.EmailField(max_length=50)
     appointmentdate = models.DateField()
     appointmenttime = models.TimeField()
@@ -38,4 +38,4 @@ class Appointment(models.Model):
     status = models.BooleanField()
 
     def __str__(self):
-        return self.name
+        return self.doctorname
